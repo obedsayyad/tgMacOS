@@ -22,3 +22,9 @@ target 'tgMacOS-macOS' do
     react_native_post_install(installer)
   end
 end
+
+target 'VpnExtension' do
+  platform :macos, '11.0'
+  
+  pod 'CocoaLumberjack', '~> 3.8.5'
+end

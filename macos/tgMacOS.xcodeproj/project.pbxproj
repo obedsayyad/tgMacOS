@@ -3,10 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38287A912E619EC4006619CC /* Tun2socks.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38287A872E619E03006619CC /* Tun2socks.xcframework */; };
+		38287A922E619EC4006619CC /* Tun2socks.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 38287A872E619E03006619CC /* Tun2socks.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		38287B062E61BD8A006619CC /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38287A022E6187CC006619CC /* NetworkExtension.framework */; };
+		38287B0F2E61BD8A006619CC /* VpnExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 38287B052E61BD8A006619CC /* VpnExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		38287B1E2E61C201006619CC /* Tun2socks.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38287A872E619E03006619CC /* Tun2socks.xcframework */; };
+		38287B1F2E61C201006619CC /* Tun2socks.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 38287A872E619E03006619CC /* Tun2socks.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		38287B232E61C4A3006619CC /* OutlineAppleLib in Frameworks */ = {isa = PBXBuildFile; productRef = 38287B222E61C4A3006619CC /* OutlineAppleLib */; };
 		5142014D2437B4B30078DB4F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5142014C2437B4B30078DB4F /* AppDelegate.mm */; };
 		514201522437B4B40078DB4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 514201512437B4B40078DB4F /* Assets.xcassets */; };
 		514201552437B4B40078DB4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514201532437B4B40078DB4F /* Main.storyboard */; };
@@ -15,7 +22,68 @@
 		7089ACE98FE24FDFFF2474A6 /* libPods-tgMacOS-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BD17DB020C6E73196A37C7 /* libPods-tgMacOS-macOS.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		38287B0D2E61BD8A006619CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 38287B042E61BD8A006619CC;
+			remoteInfo = VpnExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		38287A0E2E6187CC006619CC /* Embed System Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed System Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38287A2E2E61894F006619CC /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				38287B0F2E61BD8A006619CC /* VpnExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38287A932E619EC4006619CC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				38287A922E619EC4006619CC /* Tun2socks.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38287B202E61C201006619CC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				38287B1F2E61C201006619CC /* Tun2socks.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0F310542F4FCAC026E14E0E3 /* Pods-VpnExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VpnExtension.release.xcconfig"; path = "Target Support Files/Pods-VpnExtension/Pods-VpnExtension.release.xcconfig"; sourceTree = "<group>"; };
+		38287A022E6187CC006619CC /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		38287A1A2E618851006619CC /* tgMacOS-macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "tgMacOS-macOS.entitlements"; sourceTree = "<group>"; };
+		38287A872E619E03006619CC /* Tun2socks.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Tun2socks.xcframework; path = frameworks/Tun2socks.xcframework; sourceTree = "<group>"; };
+		38287B052E61BD8A006619CC /* VpnExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VpnExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		43356F286C038BD1BFCBA8EE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		514201492437B4B30078DB4F /* tgMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tgMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5142014B2437B4B30078DB4F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -25,18 +93,45 @@
 		514201562437B4B40078DB4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		514201572437B4B40078DB4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		514201592437B4B40078DB4F /* tgMacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tgMacOS.entitlements; sourceTree = "<group>"; };
+		634AE49B6B817D1FB3401C30 /* libPods-VpnExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VpnExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E3D50FF4DB86F7601E9CB2 /* Pods-tgMacOS-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tgMacOS-macOS.debug.xcconfig"; path = "Target Support Files/Pods-tgMacOS-macOS/Pods-tgMacOS-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C9BD17DB020C6E73196A37C7 /* libPods-tgMacOS-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tgMacOS-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D035DF33E76EE41A3A3A9A6B /* Pods-tgMacOS-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tgMacOS-macOS.release.xcconfig"; path = "Target Support Files/Pods-tgMacOS-macOS/Pods-tgMacOS-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FFFF0E2603D26D7241C40AE7 /* Pods-VpnExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VpnExtension.debug.xcconfig"; path = "Target Support Files/Pods-VpnExtension/Pods-VpnExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		38287B102E61BD8A006619CC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 38287B042E61BD8A006619CC /* VpnExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		38287B072E61BD8A006619CC /* VpnExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (38287B102E61BD8A006619CC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = VpnExtension; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		38287B022E61BD8A006619CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38287B1E2E61C201006619CC /* Tun2socks.xcframework in Frameworks */,
+				38287B062E61BD8A006619CC /* NetworkExtension.framework in Frameworks */,
+				38287B232E61C4A3006619CC /* OutlineAppleLib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		514201462437B4B30078DB4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7089ACE98FE24FDFFF2474A6 /* libPods-tgMacOS-macOS.a in Frameworks */,
+				38287A912E619EC4006619CC /* Tun2socks.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,8 +141,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38287A872E619E03006619CC /* Tun2socks.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				C9BD17DB020C6E73196A37C7 /* libPods-tgMacOS-macOS.a */,
+				38287A022E6187CC006619CC /* NetworkExtension.framework */,
+				634AE49B6B817D1FB3401C30 /* libPods-VpnExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -57,6 +155,8 @@
 			children = (
 				90E3D50FF4DB86F7601E9CB2 /* Pods-tgMacOS-macOS.debug.xcconfig */,
 				D035DF33E76EE41A3A3A9A6B /* Pods-tgMacOS-macOS.release.xcconfig */,
+				FFFF0E2603D26D7241C40AE7 /* Pods-VpnExtension.debug.xcconfig */,
+				0F310542F4FCAC026E14E0E3 /* Pods-VpnExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -64,6 +164,7 @@
 		5142014A2437B4B30078DB4F /* tgMacOS-macOS */ = {
 			isa = PBXGroup;
 			children = (
+				38287A1A2E618851006619CC /* tgMacOS-macOS.entitlements */,
 				5142014B2437B4B30078DB4F /* AppDelegate.h */,
 				5142014C2437B4B30078DB4F /* AppDelegate.mm */,
 				514201512437B4B40078DB4F /* Assets.xcassets */,
@@ -87,6 +188,7 @@
 			children = (
 				5142014A2437B4B30078DB4F /* tgMacOS-macOS */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				38287B072E61BD8A006619CC /* VpnExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				43356F286C038BD1BFCBA8EE /* PrivacyInfo.xcprivacy */,
@@ -101,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				514201492437B4B30078DB4F /* tgMacOS.app */,
+				38287B052E61BD8A006619CC /* VpnExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,6 +211,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		38287B042E61BD8A006619CC /* VpnExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 38287B112E61BD8A006619CC /* Build configuration list for PBXNativeTarget "VpnExtension" */;
+			buildPhases = (
+				38287B012E61BD8A006619CC /* Sources */,
+				38287B022E61BD8A006619CC /* Frameworks */,
+				38287B032E61BD8A006619CC /* Resources */,
+				38287B202E61C201006619CC /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				38287B072E61BD8A006619CC /* VpnExtension */,
+			);
+			name = VpnExtension;
+			packageProductDependencies = (
+				38287B222E61C4A3006619CC /* OutlineAppleLib */,
+			);
+			productName = VpnExtension;
+			productReference = 38287B052E61BD8A006619CC /* VpnExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		514201482437B4B30078DB4F /* tgMacOS-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5142015A2437B4B40078DB4F /* Build configuration list for PBXNativeTarget "tgMacOS-macOS" */;
@@ -118,10 +245,14 @@
 				514201472437B4B30078DB4F /* Resources */,
 				381D8A6E24576A4E00465D17 /* Bundle React Native code and images */,
 				F7BDB13625DD866DE27E0DD4 /* [CP] Copy Pods Resources */,
+				38287A0E2E6187CC006619CC /* Embed System Extensions */,
+				38287A2E2E61894F006619CC /* Embed Foundation Extensions */,
+				38287A932E619EC4006619CC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				38287B0E2E61BD8A006619CC /* PBXTargetDependency */,
 			);
 			name = "tgMacOS-macOS";
 			productName = tgMacOS;
@@ -134,8 +265,12 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
+					38287B042E61BD8A006619CC = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					514201482437B4B30078DB4F = {
 						CreatedOnToolsVersion = 11.4;
 						DevelopmentTeam = K83SWH8YJ2;
@@ -152,16 +287,27 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				38287B212E61C495006619CC /* XCLocalSwiftPackageReference "OutlineAppleLib" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				514201482437B4B30078DB4F /* tgMacOS-macOS */,
+				38287B042E61BD8A006619CC /* VpnExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		38287B032E61BD8A006619CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		514201472437B4B30078DB4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -246,6 +392,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		38287B012E61BD8A006619CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		514201452437B4B30078DB4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +409,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		38287B0E2E61BD8A006619CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 38287B042E61BD8A006619CC /* VpnExtension */;
+			targetProxy = 38287B0D2E61BD8A006619CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		514201532437B4B40078DB4F /* Main.storyboard */ = {
@@ -269,12 +430,105 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		38287B122E61BD8A006619CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = VpnExtension/VpnExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = K83SWH8YJ2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VpnExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = VpnExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.develentcorp.tgMacOS.VpnExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VpnExtension/VpnExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		38287B132E61BD8A006619CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = VpnExtension/VpnExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = K83SWH8YJ2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VpnExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = VpnExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.develentcorp.tgMacOS.VpnExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VpnExtension/VpnExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		5142015B2437B4B40078DB4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90E3D50FF4DB86F7601E9CB2 /* Pods-tgMacOS-macOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "tgMacOS-macOS/tgMacOS-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -284,7 +538,10 @@
 				INFOPLIST_FILE = "tgMacOS-macos/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TeachGate Connect";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
@@ -295,6 +552,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.develentcorp.tgMacOS;
 				PRODUCT_NAME = tgMacOS;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -307,6 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "tgMacOS-macOS/tgMacOS-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -315,7 +574,10 @@
 				INFOPLIST_FILE = "tgMacOS-macos/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "TeachGate Connect";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
@@ -326,6 +588,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.develentcorp.tgMacOS;
 				PRODUCT_NAME = tgMacOS;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -379,7 +642,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -387,10 +653,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -439,17 +702,17 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = macosx;
 				USE_HERMES = false;
@@ -460,6 +723,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		38287B112E61BD8A006619CC /* Build configuration list for PBXNativeTarget "VpnExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38287B122E61BD8A006619CC /* Debug */,
+				38287B132E61BD8A006619CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5142015A2437B4B40078DB4F /* Build configuration list for PBXNativeTarget "tgMacOS-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -479,6 +751,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		38287B212E61C495006619CC /* XCLocalSwiftPackageReference "OutlineAppleLib" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = OutlineAppleLib;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		38287B222E61C4A3006619CC /* OutlineAppleLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38287B212E61C495006619CC /* XCLocalSwiftPackageReference "OutlineAppleLib" */;
+			productName = OutlineAppleLib;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
