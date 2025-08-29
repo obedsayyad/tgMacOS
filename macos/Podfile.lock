@@ -1209,6 +1209,29 @@ PODS:
     - React-jsiexecutor
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
+  - react-native-safe-area-context (5.6.1):
+    - React-Core
+  - react-native-webview (13.16.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - React-NativeModulesApple (0.78.6):
     - glog
     - React-callinvoker
@@ -1480,6 +1503,29 @@ PODS:
     - React-logger (= 0.78.6)
     - React-perflogger (= 0.78.6)
     - React-utils (= 0.78.6)
+  - RNCAsyncStorage (2.2.0):
+    - React-Core
+  - RNGestureHandler (2.28.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - SocketRocket (0.7.1)
   - Yoga (0.0.0)
 
@@ -1522,6 +1568,8 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native-macos/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native-macos/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native-macos/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../node_modules/react-native-macos/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native-macos/ReactCommon/reactperflogger`)
   - React-performancetimeline (from `../node_modules/react-native-macos/ReactCommon/react/performance/timeline`)
@@ -1549,6 +1597,8 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native-macos/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - SocketRocket (from `../node_modules/react-native-macos/third-party-podspecs/SocketRocket.podspec`)
   - Yoga (from `../node_modules/react-native-macos/ReactCommon/yoga`)
 
@@ -1625,6 +1675,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-macos/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native-macos/ReactCommon/react/nativemodule/microtasks"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-NativeModulesApple:
     :path: "../node_modules/react-native-macos/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
@@ -1679,6 +1733,10 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native-macos/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   SocketRocket:
     :podspec: "../node_modules/react-native-macos/third-party-podspecs/SocketRocket.podspec"
   Yoga:
@@ -1721,6 +1779,8 @@ SPEC CHECKSUMS:
   React-logger: 4decf7656034a9a718ba347ecc1c87c79a04b58b
   React-Mapbuffer: 4ad71d8e010591048bfa792f1ad6178181b87b9f
   React-microtasksnativemodule: 06c2ee7b0abc0680ce7c32d04b1e36f58e8271e1
+  react-native-safe-area-context: 2243039f43d10cb1ea30ec5ac57fc6d1448413f4
+  react-native-webview: 1557727b7fb19512e4ee8321a839bb08e1a06a64
   React-NativeModulesApple: 3a407fb81694679cb400fc2504b37354e9234272
   React-perflogger: 96cceccf29bf5507b3f48339f1d7282827a5274c
   React-performancetimeline: f3f35f8a93f3788a0f920a09f0a99d58d14dcd06
@@ -1748,6 +1808,8 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 78d1aa823d2f280f83372f9abb50502cee4d0424
   ReactCodegen: cfbf6d5eabb2335c65a821c9fd8e1883e87c1ef7
   ReactCommon: a7ae79eb3489b81532aa0352e3b9b496e35a9af7
+  RNCAsyncStorage: b44e8a4e798c3e1f56bffccd0f591f674fb9198f
+  RNGestureHandler: ca5ceb73b16c83ce13bb156f086e9804353346be
   SocketRocket: 03f7111df1a343b162bf5b06ead333be808e1e0a
   Yoga: 187db0b2a37012c01dac36afb886a29b92bfd943
 
