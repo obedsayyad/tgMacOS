@@ -87,6 +87,12 @@ NSString *const kDefaultPathKey = @"defaultPath";
     DDLogError(@"Failed to retrieve the transport configuration.");
     return startDone([SwiftBridge newInvalidConfigOutlineErrorWithMessage:@"config is not a String"]);
   }
+  
+  // Add detailed logging
+  DDLogInfo(@"🔍 DEBUG: Tunnel ID: %@", tunnelId);
+  DDLogInfo(@"🔍 DEBUG: Transport Config: %@", transportConfig);
+  DDLogInfo(@"🔍 DEBUG: Transport Config Length: %lu", (unsigned long)[transportConfig length]);
+  
   self.tunnelId = tunnelId;
   self.transportConfig = transportConfig;
 
@@ -106,10 +112,13 @@ NSString *const kDefaultPathKey = @"defaultPath";
   // culprit and can explicitly disconnect.
   PlaterrorsPlatformError *udpConnectionError = nil;
   if (!isOnDemand) {
+    DDLogInfo(@"🔍 DEBUG: Creating Outline client with ID: %@ and config: %@", tunnelId, transportConfig);
     OutlineNewClientResult* clientResult = [SwiftBridge newClientWithId:tunnelId transportConfig:transportConfig];
     if (clientResult.error != nil) {
+      DDLogError(@"🔍 DEBUG: Client creation failed with error: %@", clientResult.error);
       return startDone([SwiftBridge newOutlineErrorFromPlatformError:clientResult.error]);
     }
+    DDLogInfo(@"🔍 DEBUG: Client created successfully");
     OutlineTCPAndUDPConnectivityResult *connResult = OutlineCheckTCPAndUDPConnectivity(clientResult.client);
     DDLogDebug(@"Check connectivity result: tcpErr=%@, udpErr=%@", connResult.tcpError, connResult.udpError);
     if (connResult.tcpError != nil) {

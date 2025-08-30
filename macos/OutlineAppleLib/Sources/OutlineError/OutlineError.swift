@@ -12,7 +12,64 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Tun2socks // For platerrors ErrorCode strings
+import Tun2socks // For platerrors types
+
+// MARK: - Platerrors Error Code Constants
+// These constants mirror the Go error codes from platerrors/error_code.go
+// They are defined here because gomobile cannot export Go type aliases
+
+// Common error codes - general
+public let PlaterrorsInternalError: String = "ERR_INTERNAL_ERROR"
+public let PlaterrorsOperationCanceled: String = "ERR_OPERATION_CANCELED_BY_USER"
+
+// Common error codes - network
+public let PlaterrorsResolveIPFailed: String = "ERR_RESOLVE_IP_FAILURE"
+
+// Common error codes - I/O device
+public let PlaterrorsSetupTrafficHandlerFailed: String = "ERR_TRAFFIC_HANDLER_SETUP_FAILURE"
+public let PlaterrorsVPNPermissionNotGranted: String = "ERR_VPN_PERMISSION_NOT_GRANTED"
+public let PlaterrorsSetupSystemVPNFailed: String = "ERR_SYSTEM_VPN_SETUP_FAILURE"
+public let PlaterrorsDisconnectSystemVPNFailed: String = "ERR_SYSTEM_VPN_DISCONNECT_FAILURE"
+public let PlaterrorsDataTransmissionFailed: String = "ERR_DATA_TRANSMISSION_FAILURE"
+
+// Business logic error codes - proxy server
+public let PlaterrorsProxyServerUnreachable: String = "ERR_PROXY_SERVER_UNREACHABLE"
+public let PlaterrorsProxyServerWriteFailed: String = "ERR_PROXY_SERVER_WRITE_FAILURE"
+public let PlaterrorsProxyServerReadFailed: String = "ERR_PROXY_SERVER_READ_FAILURE"
+public let PlaterrorsUnauthenticated: String = "ERR_CLIENT_UNAUTHENTICATED"
+public let PlaterrorsProxyServerUDPUnsupported: String = "ERR_PROXY_SERVER_UDP_NOT_SUPPORTED"
+
+// Business logic error codes - config
+public let PlaterrorsFetchConfigFailed: String = "ERR_FETCH_CONFIG_FAILURE"
+public let PlaterrorsProviderError: String = "ERR_PROVIDER"
+public let PlaterrorsInvalidConfig: String = "ERR_INVALID_CONFIG"
+
+// MARK: - PlatformError Extensions
+
+extension PlaterrorsPlatformError {
+  /// Returns the error code for this PlatformError.
+  /// This is a workaround for the missing 'code' property in the gomobile-generated interface.
+  public var errorCode: String {
+    // Since we can't access the code directly, we'll try to extract it from the JSON representation
+    var marshalError: NSError?
+    let jsonString = PlaterrorsMarshalJSONString(self, &marshalError)
+    
+    guard marshalError == nil, let data = jsonString.data(using: .utf8) else {
+      return PlaterrorsInternalError
+    }
+    
+    do {
+      if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+         let code = json["code"] as? String {
+        return code
+      }
+    } catch {
+      // Fallback to internal error if JSON parsing fails
+    }
+    
+    return PlaterrorsInternalError
+  }
+}
 
 /// Defines keys used in the userInfo of a NSError.
 private enum OutlineErrorNSErrorKeys {
@@ -52,7 +109,7 @@ public enum OutlineError: Error, CustomNSError {
     case .detailedJsonError(let code, _):
       return code
     case .platformError(let error):
-      return error.code
+      return error.errorCode
     case .internalError(_):
       return PlaterrorsInternalError
     case .invalidConfig(_):
@@ -122,11 +179,19 @@ public func marshalErrorJson(error: Error) -> String {
 
 /// Marshals an error with a given code and message to a JSON string.
 private func marshalErrorJson(code: String, message: String) -> String {
-  // Reuse PlatformError's marshalling to reduce code duplication
-  guard let platformError = PlaterrorsNewPlatformError(code, message) else {
-    return "error code = \(code), message = \(message)"
+  // Since PlaterrorsNewPlatformError is not available through gomobile,
+  // we'll create the JSON manually
+  let errorDict: [String: Any] = [
+    "code": code,
+    "message": message
+  ]
+  
+  do {
+    let jsonData = try JSONSerialization.data(withJSONObject: errorDict, options: [])
+    return String(data: jsonData, encoding: .utf8) ?? "{\"code\":\"\(code)\",\"message\":\"\(message)\"}"
+  } catch {
+    return "{\"code\":\"\(code)\",\"message\":\"\(message)\"}"
   }
-  return marshalErrorJson(outlineError: .platformError(platformError))
 }
 
 /// Marshals an `OutlineError` to a JSON string.

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -11,12 +11,21 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ToggleSwitch from '../components/ToggleSwitch';
+import {AuthContext} from '../context/AuthContext';
 
 // Native module bridge
-const {TeachGateVPNModule} = NativeModules as any;
-const vpnEventEmitter = TeachGateVPNModule
-  ? new NativeEventEmitter(TeachGateVPNModule)
-  : null;
+const {VPNModule} = NativeModules as any;
+const vpnEventEmitter = VPNModule ? new NativeEventEmitter(VPNModule) : null;
+
+// Debug: Check if VPNModule is loaded
+console.log('🔍 DEBUG: VPNModule loaded:', !!VPNModule);
+console.log('🔍 DEBUG: Available native modules:', Object.keys(NativeModules));
+if (VPNModule) {
+  console.log(
+    '🔍 DEBUG: VPNModule methods:',
+    Object.getOwnPropertyNames(VPNModule),
+  );
+}
 
 interface Props {
   toggleSidebar: () => void;
@@ -35,6 +44,7 @@ const HomeScreen: React.FC<Props> = ({toggleSidebar, goToScreen}) => {
   const [loading, setLoading] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [vpnConfig, setVpnConfig] = useState<any>(null);
+  const {token} = useContext(AuthContext);
 
   const calculateElapsed = async () => {
     const startTimeStr = await AsyncStorage.getItem(CONNECTION_START_KEY);
@@ -52,9 +62,9 @@ const HomeScreen: React.FC<Props> = ({toggleSidebar, goToScreen}) => {
   useEffect(() => {
     const checkVpnStatus = async () => {
       try {
-        if (Platform.OS === 'macos' && TeachGateVPNModule) {
-          const status = await TeachGateVPNModule.getStatus();
-          setIsConnected(!!status);
+        if (Platform.OS === 'macos' && VPNModule) {
+          const status = await VPNModule.getVPNStatus();
+          setIsConnected(status?.connected || false);
           if (status) {
             calculateElapsed();
           }
@@ -105,7 +115,7 @@ const HomeScreen: React.FC<Props> = ({toggleSidebar, goToScreen}) => {
       setConnecting(false);
     };
 
-    const sub1 = vpnEventEmitter.addListener('vpnStatusChanged', onStatus);
+    const sub1 = vpnEventEmitter.addListener('vpn-status-changed', onStatus);
     const sub2 = vpnEventEmitter.addListener('vpnError', onError);
     return () => {
       sub1.remove();
@@ -113,12 +123,157 @@ const HomeScreen: React.FC<Props> = ({toggleSidebar, goToScreen}) => {
     };
   }, []);
 
-  const ACCESS_URL =
-    'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpCTE5zbXhBUTFmdVVsMndVWUtGcFNq@96.126.107.202:19834/?outline=1';
+  // API base for auth + vpn endpoints (matches login endpoint used in LoginScreen)
+  const API_BASE = 'https://b-stg.cx-tg.develentcorp.com';
+
+  // React Native compatible base64 decoder
+  const decodeBase64 = (base64String: string): string | null => {
+    try {
+      // Clean the base64 string (remove any padding issues)
+      const cleanBase64 = base64String.replace(/[^A-Za-z0-9+/]/g, '');
+
+      // Base64 character set
+      const chars =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+      let result = '';
+
+      for (let i = 0; i < cleanBase64.length; i += 4) {
+        // Get 4 characters at a time
+        const encoded1 = chars.indexOf(cleanBase64.charAt(i));
+        const encoded2 = chars.indexOf(cleanBase64.charAt(i + 1));
+        const encoded3 = chars.indexOf(cleanBase64.charAt(i + 2));
+        const encoded4 = chars.indexOf(cleanBase64.charAt(i + 3));
+
+        if (encoded1 === -1 || encoded2 === -1) {
+          throw new Error('Invalid base64 characters');
+        }
+
+        // Convert to 24-bit bitmap
+        const bitmap =
+          (encoded1 << 18) |
+          (encoded2 << 12) |
+          ((encoded3 === -1 ? 0 : encoded3) << 6) |
+          (encoded4 === -1 ? 0 : encoded4);
+
+        // Extract characters
+        result += String.fromCharCode((bitmap >> 16) & 255);
+        if (encoded3 !== -1) result += String.fromCharCode((bitmap >> 8) & 255);
+        if (encoded4 !== -1) result += String.fromCharCode(bitmap & 255);
+      }
+
+      return result;
+    } catch (e) {
+      console.error('🔍 DEBUG: Base64 decode error:', e);
+      return null;
+    }
+  };
+
+  const parseShadowsocksURL = (ssURL: string): string | null => {
+    console.log('🔍 DEBUG: Parsing Shadowsocks URL:', ssURL);
+
+    try {
+      // Expected format: ss://base64_encoded_method:password@server:port/?params
+      if (!ssURL.startsWith('ss://')) {
+        console.error(
+          '🔍 DEBUG: Invalid Shadowsocks URL - missing ss:// prefix',
+        );
+        return null;
+      }
+
+      // Remove ss:// prefix
+      const urlContent = ssURL.substring(5);
+
+      // Split by @ to separate credentials from server
+      const parts = urlContent.split('@');
+      if (parts.length < 2) {
+        console.error(
+          '🔍 DEBUG: Invalid Shadowsocks URL - missing @ separator',
+        );
+        return null;
+      }
+
+      // Decode base64 credentials using our custom decoder
+      const base64Credentials = parts[0];
+      let credentials: string | null;
+      try {
+        credentials = decodeBase64(base64Credentials);
+        if (!credentials) {
+          throw new Error('Base64 decoding returned null');
+        }
+      } catch (e) {
+        console.error('🔍 DEBUG: Failed to decode base64 credentials:', e);
+        return null;
+      }
+
+      console.log('🔍 DEBUG: Decoded credentials:', credentials);
+
+      // Split credentials into method:password
+      const colonIndex = credentials.indexOf(':');
+      if (colonIndex === -1) {
+        console.error(
+          '🔍 DEBUG: Invalid credentials format - missing : separator',
+        );
+        return null;
+      }
+
+      const method = credentials.substring(0, colonIndex);
+      const password = credentials.substring(colonIndex + 1);
+
+      // Parse server:port
+      let serverPart = parts[1];
+      // Remove query parameters if present
+      const queryIndex = serverPart.indexOf('?');
+      if (queryIndex !== -1) {
+        serverPart = serverPart.substring(0, queryIndex);
+      }
+
+      // Split server:port
+      const serverParts = serverPart.split(':');
+      if (serverParts.length < 2) {
+        console.error('🔍 DEBUG: Invalid server format - missing port');
+        return null;
+      }
+
+      const server = serverParts[0];
+      const port = parseInt(serverParts[1], 10);
+
+      if (port <= 0 || port > 65535) {
+        console.error('🔍 DEBUG: Invalid port number:', serverParts[1]);
+        return null;
+      }
+
+      // Create JSON configuration in standard Shadowsocks format for Outline Go client
+      const config = {
+        method: method,
+        password: password,
+        server: server,
+        port: port, // Use 'port' instead of 'server_port' for standard Shadowsocks format
+      };
+
+      const jsonConfig = JSON.stringify(config);
+      console.log(
+        '🔍 DEBUG: Generated standard Shadowsocks JSON config:',
+        jsonConfig,
+      );
+      return jsonConfig;
+    } catch (error) {
+      console.error('🔍 DEBUG: Error parsing Shadowsocks URL:', error);
+      return null;
+    }
+  };
 
   const toggleConnection = async () => {
-    if (Platform.OS !== 'macos' || !TeachGateVPNModule) {
+    if (Platform.OS !== 'macos') {
+      console.log('🔍 DEBUG: Not running on macOS, using mock behavior');
       setIsConnected(prev => !prev);
+      return;
+    }
+
+    if (!VPNModule) {
+      console.error(
+        '🔍 DEBUG: VPNModule not available! Check native module registration.',
+      );
+      alert('VPN module not loaded. Check console for details.');
       return;
     }
 
@@ -127,25 +282,67 @@ const HomeScreen: React.FC<Props> = ({toggleSidebar, goToScreen}) => {
 
     try {
       console.log('🔍 DEBUG: Starting VPN toggle operation...');
-      console.log(
-        '🔍 DEBUG: TeachGateVPNModule available:',
-        !!TeachGateVPNModule,
-      );
-      console.log(
-        '🔍 DEBUG: toggleConnection method available:',
-        !!TeachGateVPNModule?.toggleConnection,
-      );
+      console.log('🔍 DEBUG: VPNModule available:', !!VPNModule);
 
-      await TeachGateVPNModule.toggleConnection(
-        JSON.stringify({accessKey: ACCESS_URL}),
-      );
-      console.log('🔍 DEBUG: VPN toggle completed successfully');
-    } catch (err) {
-      console.error(
-        '🔍 DEBUG: TeachGateVPNModule.toggleConnection failed:',
-        err,
-      );
+      if (isConnected) {
+        // Disconnect VPN
+        console.log('🔍 DEBUG: Disconnecting VPN...');
+        await VPNModule.disconnectVPN();
+        console.log('🔍 DEBUG: VPN disconnected successfully');
+      } else {
+        // Connect VPN
+        console.log('🔍 DEBUG: Connecting VPN...');
+
+        // Ensure we have an auth token
+        if (!token) {
+          console.error(
+            '🔍 DEBUG: No auth token available for VPN config request',
+          );
+          alert('Not authenticated. Please sign in.');
+          setConnecting(false);
+          return;
+        }
+
+        // Fetch VPN config from backend using JWT
+        const url = `${API_BASE}/api/user/vpnconfig`;
+        console.log('🔍 DEBUG: Fetching VPN config from', url);
+        const resp = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        });
+
+        if (!resp.ok) {
+          const text = await resp.text().catch(() => '');
+          throw new Error(
+            `Failed to fetch VPN config: ${resp.status} ${resp.statusText} ${text}`,
+          );
+        }
+
+        const data = await resp.json();
+        console.log('🔍 DEBUG: Received VPN config:', data);
+        setVpnConfig(data);
+
+        const accessKey =
+          data?.accessUrl || data?.access_url || data?.accessurl || null;
+
+        if (!accessKey) {
+          throw new Error('VPN accessUrl missing in response');
+        }
+
+        console.log('🔍 DEBUG: Using fetched accessKey:', accessKey);
+
+        await VPNModule.connectVPN({
+          accessKey,
+        });
+        console.log('🔍 DEBUG: VPN connected successfully');
+      }
+    } catch (err: any) {
+      console.error('🔍 DEBUG: VPNModule operation failed:', err);
       console.error('🔍 DEBUG: Error details:', JSON.stringify(err, null, 2));
+      alert(`Failed to toggle VPN: ${err?.message || String(err)}`);
     } finally {
       setConnecting(false);
     }

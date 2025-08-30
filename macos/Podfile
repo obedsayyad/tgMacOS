@@ -26,5 +26,6 @@ end
 target 'VpnExtension' do
   platform :macos, '11.0'
   
-  pod 'CocoaLumberjack', '~> 3.8.5'
+  # Share CocoaLumberjack with main target to avoid duplicates
+  inherit! :search_paths
 end
